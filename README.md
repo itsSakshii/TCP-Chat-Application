@@ -71,3 +71,87 @@ client-server-chat/
 👤 Username support
 🔒 Private messaging
 🌐 Deployment on cloud
+
+
+
+
+Wireshark Capture (Network Proof)
+
+Your Wireshark filter:
+
+tcp.port == 12345
+
+This means you are capturing traffic for your chat server port (12345).
+
+Packets visible:
+
+[SYN]
+[SYN, ACK]
+[ACK]
+
+This is the TCP 3-way handshake:
+
+1️⃣ Client → Server
+
+SYN
+
+2️⃣ Server → Client
+
+SYN ACK
+
+3️⃣ Client → Server
+
+ACK
+
+✅ This proves TCP connection establishment is working.
+
+Then you also see:
+
+PSH, ACK
+
+Example from screenshot:
+
+[PSH, ACK] Len=21
+[PSH, ACK] Len=6
+
+PSH = Push data immediately to application
+
+Meaning:
+
+➡ Actual chat messages are being transmitted
+
+So Wireshark confirms:
+
+✔ TCP connection established
+✔ Data packets transferred
+✔ Acknowledgements received
+
+3️⃣ Why Source and Destination are 127.0.0.1
+
+You see:
+
+Source: 127.0.0.1
+Destination: 127.0.0.1
+
+That means:
+
+Both clients are running on the same computer.
+
+This is called:
+
+Loopback interface
+
+So traffic goes:
+
+Client → localhost → Server → localhost → Client
+
+Which is totally normal during testing.
+
+4️⃣ Port Numbers in Screenshot
+
+Example packet:
+
+Src Port: 12345
+Dst Port: 55523
+12345 → your server port
+55523 / 60403 → client ephemeral ports
