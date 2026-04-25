@@ -11,7 +11,29 @@ PORT = 12345
 # ── Page config ────────────────────────────────────────────────────────────
 st.set_page_config(page_title="TCP Chat", page_icon="💬", layout="centered")
 st.title("💬 TCP Chat Application")
-st.caption("MCA Project — Computer Networks | JIIT Noida")
+st.markdown("""
+<style>
+/* 🔌 Connect + Send buttons (primary) */
+div.stButton > button[kind="primary"] {
+    background-color: #1e90ff;  /* Your blue shade */
+    color: white;
+    border-radius: 8px;
+    border: none;
+}
+
+/* Hover effect */
+div.stButton > button[kind="primary"]:hover {
+    background-color: #0b74d1;
+    color: white;
+}
+
+/* Optional: Disconnect (secondary button) */
+div.stButton > button:not([kind="primary"]) {
+    background-color: #e0e0e0;
+    color: black;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ── Session state init ─────────────────────────────────────────────────────
 defaults = {
